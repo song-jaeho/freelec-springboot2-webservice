@@ -1,6 +1,9 @@
 package com.jojoldu.book.springboot.domain.posts;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
 
 /*
 - ~batis 등에서 Dao라고 불리는 DB Layer 접근자. JPA에선 Repository 라고 부르며 인터페이스로 생성한다.
@@ -9,4 +12,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 - Entity클래스와 기본 Entity Repository는 함께 위치해야 한다. 밀접한 관계이기 때문이다. 따라서 도메인 패키지에서 함께 관리한다.
  */
 public interface PostsRepository extends JpaRepository<Posts, Long> {
+
+    @Query("SELECT p FROM Posts p ORDER BY p.id DESC")
+    List<Posts> findAllDesc();
+
 }
